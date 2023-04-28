@@ -68,10 +68,10 @@
     background: #333;
     color: #fff;
   }
-  
+ 
   .error {
-    background: orangered;
+    background: rgb(241, 69, 6);
     color: #fff;
     padding: 5px;
-    margin: 5px;
+    margin: 5px; 
   }

@@ -1,40 +1,40 @@
-// Multiple Element Selectors
-console.log(document.querySelectorAll('.item'));
-console.log(document.getElementsByTagName('li'));
-console.log(document.getElementsByClassName('item'));
+// // Multiple Element Selectors
+// console.log(document.querySelectorAll('.item'));
+// console.log(document.getElementsByTagName('li'));
+// console.log(document.getElementsByClassName('item'));;;
 
-const items = document.querySelectorAll('.item');
-items.forEach((item) => console.log(item));
-
-
-// MANIPULATING THE DOM
-const ul = document.querySelector('.items');
-// ul.remove();
-// ul.lastElementChild.remove();
-ul.firstElementChild.textContent = 'Hello';
-ul.children[1].innerText = 'Brad';
-ul.lastElementChild.innerHTML = '<h1>Hello</h1>';
-
-const btn = document.querySelector('.btn');
-// btn.style.background = 'red';
+// const items = document.querySelectorAll('.item');
+// items.forEach((item) => console.log(item));
 
 
-// EVENTS
+// // MANIPULATING THE DOM
+// const ul = document.querySelector('.items');
+// // ul.remove();
+// // ul.lastElementChild.remove();
+// ul.firstElementChild.textContent = 'Hello';
+// ul.children[1].innerText = 'Brad';
+// ul.lastElementChild.innerHTML = '<h1>Hello</h1>';
 
-// Mouse Event
-btn.addEventListener('click', e => {
-  e.preventDefault();
-  console.log(e.target.className);
-  document.getElementById('my-form').style.background = '#ccc';
-  document.querySelector('body').classList.add('bg-dark');
-  ul.lastElementChild.innerHTML = '<h1>Changed</h1>';
-});
+// const btn = document.querySelector('.btn');
+// // btn.style.background = 'red';
 
-// Keyboard Event
-const nameInput = document.querySelector('#name');
-nameInput.addEventListener('input', e => {
-  document.querySelector('.container').append(nameInput.value);
-});
+
+// // EVENTS
+
+// // Mouse Event
+// btn.addEventListener('click', e => {
+//   e.preventDefault();
+//   console.log(e.target.className);
+//   document.getElementById('my-form').style.background = '#ccc';
+//   document.querySelector('body').classList.add('bg-dark');
+//   ul.lastElementChild.innerHTML = '<h1>Changed</h1>';
+// });
+
+// // Keyboard Event
+// const nameInput = document.querySelector('#name');
+// nameInput.addEventListener('input', e => {
+//   document.querySelector('.container').append(nameInput.value);
+// });
 
 
 // USER FORM SCRIPT
@@ -60,20 +60,10 @@ function onSubmit(e) {
     // Remove error after 3 seconds
     setTimeout(() => msg.remove(), 3000);
   } else {
-    // Create new list item with user
-    const li = document.createElement('li');
-
-    // Add text node with input values
-    li.appendChild(document.createTextNode(`${nameInput.value}: ${emailInput.value}`));
-
-    // Add HTML
-    // li.innerHTML = `<strong>${nameInput.value}</strong>e: ${emailInput.value}`;
-
-    // Append to ul
-    userList.appendChild(li);
-
-    // Clear fields
-    nameInput.value = '';
-    emailInput.value = '';
+    // storing the items 
+   localStorage.setItem(nameInput.value, emailInput.value);
+// clear the fields 
+   nameInput.value ='' ;
+   emailInput.value = '';
   }
 }
