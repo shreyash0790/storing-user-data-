@@ -67,10 +67,10 @@ function onSubmit(e) {
       email
     }
     // storing the items 
-  const existingData = JSON.parse(localStorage.getItem('userData')) || [];
+  const existingData = JSON.parse(localStorage.getItem(email)) || [];
   existingData.push(obj);
 
-  localStorage.setItem('userData', JSON.stringify(existingData));
+  localStorage.setItem(email, JSON.stringify(existingData));
 
   var lii = document.createElement('li');
  
@@ -99,8 +99,13 @@ function onSubmit(e) {
   deleteBtn.addEventListener('click', function(e) {
     e.preventDefault();
 
+    const existingData = JSON.parse(localStorage.getItem(email)) || [];
+
     existingData.splice(existingData.findIndex(item => item.name === name && item.email === email), 1);
-      localStorage.setItem('userData', JSON.stringify(existingData));
+      localStorage.setItem(email, JSON.stringify(existingData));
+      if(existingData.length === 0) {
+        localStorage.removeItem(email);
+      }
 
     lii.remove();
   });
