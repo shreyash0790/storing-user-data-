@@ -60,10 +60,18 @@ function onSubmit(e) {
     // Remove error after 3 seconds
     setTimeout(() => msg.remove(), 3000);
   } else {
-    let name=JSON.stringify(nameInput.value);
-    let email=JSON.stringify(emailInput.value);
+    let name=nameInput.value;
+    let email=emailInput.value;
+    let  obj={
+      name,
+      email
+    }
     // storing the items 
-   localStorage.setItem(JSON.parse(name), JSON.parse(email));
+  const existingData = JSON.parse(localStorage.getItem('userData')) || [];
+  existingData.push(obj);
+
+  localStorage.setItem('userData', JSON.stringify(existingData));
+  
 // clear the fields 
    nameInput.value ='' ;
    emailInput.value = '';
