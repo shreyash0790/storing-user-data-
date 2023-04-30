@@ -71,9 +71,43 @@ function onSubmit(e) {
   existingData.push(obj);
 
   localStorage.setItem('userData', JSON.stringify(existingData));
+
+  var lii = document.createElement('li');
+ 
+  // Add class
+  lii.className = 'item';
+  // Add text node with input value
+  lii.appendChild(document.createTextNode(nameInput.value+ ' '+ '=>'));
+  lii.appendChild(document.createTextNode(emailInput.value));
+  userList.appendChild(lii);
+  
+  // Create del button element
+  var deleteBtn = document.createElement('button');
+
+  // Add classes to del button
+  deleteBtn.className = 'btn';
+
+  // Append text node
+  deleteBtn.appendChild(document.createTextNode('Delete'));
+
+  // Append del button to li
+  lii.appendChild(deleteBtn);
+
+  // Append li to list
+  userList.appendChild(lii);
+
+  deleteBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+
+    existingData.splice(existingData.findIndex(item => item.name === name && item.email === email), 1);
+      localStorage.setItem('userData', JSON.stringify(existingData));
+
+    lii.remove();
+  });
   
 // clear the fields 
    nameInput.value ='' ;
    emailInput.value = '';
   }
 }
+
