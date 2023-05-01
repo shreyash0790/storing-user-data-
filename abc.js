@@ -96,6 +96,22 @@ function onSubmit(e) {
   // Append li to list
   userList.appendChild(lii);
 
+  // Create del button element
+  var editBtn = document.createElement('button');
+
+  // Add classes to del button
+  editBtn.className = 'btn';
+
+  // Append text node
+  editBtn.appendChild(document.createTextNode('Edit'));
+
+  // Append del button to li
+  lii.appendChild(editBtn);
+
+  // Append li to list
+  userList.appendChild(lii);
+
+
   deleteBtn.addEventListener('click', function(e) {
     e.preventDefault();
 
@@ -110,9 +126,29 @@ function onSubmit(e) {
     lii.remove();
   });
   
-// clear the fields 
-   nameInput.value ='' ;
-   emailInput.value = '';
+   editBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+   
+ // retrieve the name and email from the clicked list item and display them in the form fields
+ nameInput.value = name;
+ emailInput.value = email;
+ 
+ const existingData = JSON.parse(localStorage.getItem(email)) || [];
+
+ existingData.splice(existingData.findIndex(item => item.name === name && item.email === email), 1);
+      localStorage.setItem(email, JSON.stringify(existingData));
+      if(existingData.length === 0) {
+        localStorage.removeItem(email);
+      }
+
+ // remove the list item from the DOM
+ lii.remove();
+    
+  });
+
+  // clear the fields 
+  nameInput.value ='' ;
+  emailInput.value = '';
   }
 }
 
