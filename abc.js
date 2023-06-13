@@ -37,7 +37,7 @@
 // });
 
 
-// USER FORM SCRIPT
+
 
 // Put DOM elements into variables
 const myForm = document.querySelector('#my-form');
