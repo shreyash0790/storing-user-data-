@@ -66,11 +66,12 @@ function onSubmit(e) {
       name,
       email
     }
-    // storing the items 
-  const existingData = JSON.parse(localStorage.getItem(email)) || [];
-  existingData.push(obj);
+    // storing the items
+     axios.post("https://crudcrud.com/api/1f40ecb55c1448e798395c2a176e037d/objDATA",obj).then((response)=> {console.log(response)}).catch((err)=> {console.log(err)})
+  // const existingData = JSON.parse(localStorage.getItem(email)) || [];
+  // existingData.push(obj);
 
-  localStorage.setItem(email, JSON.stringify(existingData));
+  // localStorage.setItem(email, JSON.stringify(existingData));
 
   var lii = document.createElement('li');
  
