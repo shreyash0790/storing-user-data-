@@ -67,7 +67,7 @@ function onSubmit(e) {
       email
     }
     // storing the items
-     axios.post("https://crudcrud.com/api/d4f77a7ae2244fde8b4d16e660f1e8b2/objDATA",obj).then((response)=> {console.log(response)}).catch((err)=> {console.log(err)})
+     axios.post("https://crudcrud.com/api/010c5fb05b4b48bd8792670e0c11e9b3/objDATA",obj).then((response)=> {console.log(response)}).catch((err)=> {console.log(err)})
   // const existingData = JSON.parse(localStorage.getItem(email)) || [];
   // existingData.push(obj);
 
@@ -113,40 +113,40 @@ function onSubmit(e) {
   userList.appendChild(lii);
 
 
-  deleteBtn.addEventListener('click', function(e) {
-    e.preventDefault();
+//   deleteBtn.addEventListener('click', function(e) {
+//     e.preventDefault();
 
-    // const existingData = JSON.parse(localStorage.getItem(email)) || [];
+//     // const existingData = JSON.parse(localStorage.getItem(email)) || [];
 
-    // existingData.splice(existingData.findIndex(item => item.name === name && item.email === email), 1);
-    //   localStorage.setItem(email, JSON.stringify(existingData));
-    //   if(existingData.length === 0) {
-    //     localStorage.removeItem(email);
-    //   }
+//     // existingData.splice(existingData.findIndex(item => item.name === name && item.email === email), 1);
+//     //   localStorage.setItem(email, JSON.stringify(existingData));
+//     //   if(existingData.length === 0) {
+//     //     localStorage.removeItem(email);
+//     //   }
 
-    // lii.remove();
+//     // lii.remove();
 
-  });
+//   });
   
-   editBtn.addEventListener('click', function(e) {
-    e.preventDefault();
+//    editBtn.addEventListener('click', function(e) {
+//     e.preventDefault();
    
- // retrieve the name and email from the clicked list item and display them in the form fields
- nameInput.value = name;
- emailInput.value = email;
+//  // retrieve the name and email from the clicked list item and display them in the form fields
+//  nameInput.value = name;
+//  emailInput.value = email;
  
- const existingData = JSON.parse(localStorage.getItem(email)) || [];
+//  const existingData = JSON.parse(localStorage.getItem(email)) || [];
 
- existingData.splice(existingData.findIndex(item => item.name === name && item.email === email), 1);
-      localStorage.setItem(email, JSON.stringify(existingData));
-      if(existingData.length === 0) {
-        localStorage.removeItem(email);
-      }
+//  existingData.splice(existingData.findIndex(item => item.name === name && item.email === email), 1);
+//       localStorage.setItem(email, JSON.stringify(existingData));
+//       if(existingData.length === 0) {
+//         localStorage.removeItem(email);
+//       }
 
- // remove the list item from the DOM
- lii.remove();
+//  // remove the list item from the DOM
+//  lii.remove();
     
-  });
+//   });
 
   // clear the fields 
   nameInput.value ='' ;
@@ -154,7 +154,7 @@ function onSubmit(e) {
   }
 }
 window.addEventListener('DOMContentLoaded',()=>{
-  axios.get('https://crudcrud.com/api/d4f77a7ae2244fde8b4d16e660f1e8b2/objDATA')
+  axios.get('https://crudcrud.com/api/010c5fb05b4b48bd8792670e0c11e9b3/objDATA')
   .then((response) => {
     const users = response.data; // Assuming the response contains an array of user objects
 
@@ -188,7 +188,7 @@ window.addEventListener('DOMContentLoaded',()=>{
       deleteBtn.addEventListener('click', (e) => {
         e.preventDefault();
         const userId = user._id; 
-        axios.delete(`https://crudcrud.com/api/d4f77a7ae2244fde8b4d16e660f1e8b2/objDATA/${userId}`)
+        axios.delete(`https://crudcrud.com/api/010c5fb05b4b48bd8792670e0c11e9b3/objDATA/${userId}`)
           .then((response) => {
            
             console.log(response);
@@ -206,9 +206,54 @@ window.addEventListener('DOMContentLoaded',()=>{
       editBtn.addEventListener('click', (e) => {
         e.preventDefault();
 
-        // Handle edit logic
-        // ...
-      });
+        const userId = user._id; 
+        nameInput.value = user.name;
+        emailInput.value = user.email;
+      
+        li.remove();
+        performUpdate();
+      
+      
+      
+        function performUpdate() {
+          const updatedName = nameInput.value;
+          const updatedEmail = emailInput.value;
+      
+          // Update the user object
+          const updatedUser = {
+            _id: userId, 
+            name: updatedName,
+            email: updatedEmail,
+          };
+      
+          // Send a PUT request to the CRUD API to update the user
+          axios.put(`https://crudcrud.com/api/010c5fb05b4b48bd8792670e0c11e9b3/objDATA/${userId}`, updatedUser)
+            .then((response) => {
+              // Handle successful update
+              console.log(response);
+      
+              // Update the list item text with the updated values
+              li.firstChild.textContent = `${updatedName} => ${updatedEmail}`;
+      
+              nameInput.value = '';
+              emailInput.value = '';
+            })
+            .catch((error) => {
+              // Handle error during update
+              console.log(error);
+            });
+            axios.delete(`https://crudcrud.com/api/010c5fb05b4b48bd8792670e0c11e9b3/objDATA/${userId}`)
+          .then((response) => {
+           
+            console.log(response);
+        
+            li.remove(); 
+          })
+          .catch((error) => {
+           
+            console.log(error);
+          });
+      }});
     });
   }).catch((err)=>{console.log(err)})
 })
