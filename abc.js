@@ -152,4 +152,55 @@ function onSubmit(e) {
   emailInput.value = '';
   }
 }
+window.addEventListener('DOMContentLoaded',()=>{
+  axios.get('https://crudcrud.com/api/1f40ecb55c1448e798395c2a176e037d/objDATA')
+  .then((response) => {
+    const users = response.data; // Assuming the response contains an array of user objects
+
+    // Clear the user list
+    userList.innerHTML = '';
+
+    // Iterate over each user and create list items
+    users.forEach((user) => {
+      const li = document.createElement('li');
+      li.className = 'item';
+      li.appendChild(document.createTextNode(`${user.name} => ${user.email}`));
+      
+      // Create delete button
+      const deleteBtn = document.createElement('button');
+      deleteBtn.className = 'btn';
+      deleteBtn.appendChild(document.createTextNode('Delete'));
+
+      // Create edit button
+      const editBtn = document.createElement('button');
+      editBtn.className = 'btn';
+      editBtn.appendChild(document.createTextNode('Edit'));
+
+      // Append buttons to list item
+      li.appendChild(deleteBtn);
+      li.appendChild(editBtn);
+
+      // Append list item to user list
+      userList.appendChild(li);
+
+      // Delete button click event handler
+      deleteBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        // Handle deletion logic
+        // ...
+
+        li.remove(); // Remove the list item from the DOM
+      });
+
+      // Edit button click event handler
+      editBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        // Handle edit logic
+        // ...
+      });
+    });
+  }).catch((err)=>{console.log(err)})
+})
 
