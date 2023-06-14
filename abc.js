@@ -67,7 +67,7 @@ function onSubmit(e) {
       email
     }
     // storing the items
-     axios.post("https://crudcrud.com/api/1f40ecb55c1448e798395c2a176e037d/objDATA",obj).then((response)=> {console.log(response)}).catch((err)=> {console.log(err)})
+     axios.post("https://crudcrud.com/api/d4f77a7ae2244fde8b4d16e660f1e8b2/objDATA",obj).then((response)=> {console.log(response)}).catch((err)=> {console.log(err)})
   // const existingData = JSON.parse(localStorage.getItem(email)) || [];
   // existingData.push(obj);
 
@@ -116,15 +116,16 @@ function onSubmit(e) {
   deleteBtn.addEventListener('click', function(e) {
     e.preventDefault();
 
-    const existingData = JSON.parse(localStorage.getItem(email)) || [];
+    // const existingData = JSON.parse(localStorage.getItem(email)) || [];
 
-    existingData.splice(existingData.findIndex(item => item.name === name && item.email === email), 1);
-      localStorage.setItem(email, JSON.stringify(existingData));
-      if(existingData.length === 0) {
-        localStorage.removeItem(email);
-      }
+    // existingData.splice(existingData.findIndex(item => item.name === name && item.email === email), 1);
+    //   localStorage.setItem(email, JSON.stringify(existingData));
+    //   if(existingData.length === 0) {
+    //     localStorage.removeItem(email);
+    //   }
 
-    lii.remove();
+    // lii.remove();
+
   });
   
    editBtn.addEventListener('click', function(e) {
@@ -153,7 +154,7 @@ function onSubmit(e) {
   }
 }
 window.addEventListener('DOMContentLoaded',()=>{
-  axios.get('https://crudcrud.com/api/1f40ecb55c1448e798395c2a176e037d/objDATA')
+  axios.get('https://crudcrud.com/api/d4f77a7ae2244fde8b4d16e660f1e8b2/objDATA')
   .then((response) => {
     const users = response.data; // Assuming the response contains an array of user objects
 
@@ -186,11 +187,19 @@ window.addEventListener('DOMContentLoaded',()=>{
       // Delete button click event handler
       deleteBtn.addEventListener('click', (e) => {
         e.preventDefault();
-
-        // Handle deletion logic
-        // ...
-
-        li.remove(); // Remove the list item from the DOM
+        const userId = user._id; 
+        axios.delete(`https://crudcrud.com/api/d4f77a7ae2244fde8b4d16e660f1e8b2/objDATA/${userId}`)
+          .then((response) => {
+           
+            console.log(response);
+        
+            li.remove(); 
+          })
+          .catch((error) => {
+           
+            console.log(error);
+          });
+            
       });
 
       // Edit button click event handler
@@ -203,4 +212,5 @@ window.addEventListener('DOMContentLoaded',()=>{
     });
   }).catch((err)=>{console.log(err)})
 })
+
 
